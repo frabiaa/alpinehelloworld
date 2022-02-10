@@ -84,6 +84,7 @@ pipeline{
             }
            steps {
                script {
+                    slackSend color: "warning", message: "VALIDATION REQUIRED: Job ${env.JOB_NAME} with buildnumber ${env.BUILD_NUMBER} for testing  http://${env.STAGING}.herokuapp.com"
                     timeout(time: 15, unit: "MINUTES") {
                         input message: 'Do you want to approve the deploy in production?', ok: 'Yes'
                     }
