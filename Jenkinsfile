@@ -80,6 +80,9 @@ pipeline{
             }
            steps {
                script {
+                    timeout(time: 15, unit: "MINUTES") {
+                        input message: 'Do you want to approve the deploy in production?', ok: 'Yes'
+                    }
                    sh '''
                         heroku container:login
                         heroku create $PRODUCTION || echo "project already exist"
