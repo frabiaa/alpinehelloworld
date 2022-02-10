@@ -12,7 +12,7 @@ pipeline{
 
     stages {
 
-        stage ('build image') {
+        stage ('build mon image') {
            steps {
                script {
                    sh 'docker build -t ${USERNAME}/${IMAGE_NAME}:${IMAGE_TAG} .'
