@@ -51,6 +51,43 @@ pipeline{
                }
            } 
         }
-            
+        stage ('deploy app on staging env') {
+            agent any
+            when {
+                expression { GIT_BRANCH == 'origin/master'}
+            }
+            environment {
+                HEROKU_API_KEY=credentials('heroku_apikey')
+            }
+           steps {
+               script {
+                   sh '''
+                        heroku container:login
+                        heroku create $STAGING || echo "project already exist"
+                        heroku container:push -a $STAGING web
+                        heroku container:release -a $STAGING web
+                   '''
+               }
+           } 
+        } 
+        stage ('deploy app on prod env') {
+            agent any
+            when {
+                expression { GIT_BRANCH == 'origin/master'}
+            }
+            environment {
+                HEROKU_API_KEY=credentials('heroku_apikey')
+            }
+           steps {
+               script {
+                   sh '''
+                        heroku container:login
+                        heroku create $PRODUCTION || echo "project already exist"
+                        heroku container:push -a $PRODUCTION web
+                        heroku container:release -a $PRODUCTION web
+                   '''
+               }
+           } 
+        }              
     }
 }
