@@ -8,8 +8,8 @@ pipeline{
         IMAGE_TAG = "latest"
         USERNAME = "frabiaa"
         CONTAINTER_NAME = "alpinehelloworld"
-        STAGING = "seb-staging-env"
-        PRODUCTION = "seb-prod-env"
+        STAGING = "rabiaa-staging-env"
+        PRODUCTION = "rabiaa-prod-env"
     }
 
 
