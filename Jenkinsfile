@@ -5,7 +5,7 @@
 pipeline{
     environment{
         IMAGE_NAME = "alpinehelloworld"
-        IMAGE_TAG = "latest"
+        IMAGE_TAG = ${BUILD_TAG}
         USERNAME = "frabiaa"
         CONTAINER_NAME = "alpinehelloworld"
         STAGING = "rabiaa-staging-env"
