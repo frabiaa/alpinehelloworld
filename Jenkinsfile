@@ -61,7 +61,7 @@ pipeline{
         stage ('deploy app on staging env'){
             agent any
             environment{
-                HEROKU_API_KEY = credentials('heroku_api_key')
+                HEROKU_API_KEY = credentials('heroku_apikey')
             }
             steps{
                 script{
@@ -83,7 +83,7 @@ pipeline{
                 expression { GIT_BRANCH == 'origin/master'}
             }
             environment{
-                HEROKU_API_KEY = credentials('heroku_api_key')
+                HEROKU_API_KEY = credentials('heroku_apikey')
             }
             steps{
                 script{
@@ -103,7 +103,7 @@ pipeline{
                 expression { GIT_BRANCH == 'origin/master'}
             }
             environment{
-                HEROKU_API_KEY = credentials('heroku_api_key')
+                HEROKU_API_KEY = credentials('heroku_apikey')
             }
             steps{
                 withCredentials([sshUserPrivateKey(credentialsId: "ec2_private_key", keyFileVariable: 'keyfile', usernameVariable: 'NUSER')]) {
