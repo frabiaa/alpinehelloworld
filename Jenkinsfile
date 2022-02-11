@@ -34,7 +34,7 @@ pipeline{
                        docker rm ${CONTAINER_NAME} || true
                        docker run -d --name ${CONTAINER_NAME} -e PORT=5000 -p 5000:5000 ${USERNAME}/${IMAGE_NAME}:${IMAGE_TAG}
                        sleep 5
-                       curl http://localhost:5000 | grep -iq "Hello world! AJC"
+                       curl http://localhost:5000 | grep -iq "Hello world!"
                     '''
                 }
             }
