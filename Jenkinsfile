@@ -1,6 +1,6 @@
 
 /* import library */ 
-@Library('slack_Notifier')_
+// @Library('slack_Notifier')_
 
 pipeline{
     environment{
