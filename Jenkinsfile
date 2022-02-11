@@ -54,7 +54,7 @@ pipeline{
                        docker push ${USERNAME}/${IMAGE_NAME}:${IMAGE_TAG}
                        docker stop ${CONTAINER_NAME}
                        docker rm ${CONTAINER_NAME}
-                       docker rmi ${USERNAME}/${IMAGE_NAME}:${IMAGE_TAG}
+                       docker rmi ${USERNAME}/${IMAGE_NAME}:${IMAGE_TAG} || true
                     '''
                 }
             }
