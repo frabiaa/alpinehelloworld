@@ -10,6 +10,7 @@ pipeline{
         CONTAINTER_NAME = "alpinehelloworld"
         STAGING = "rabiaa-staging-env"
         PRODUCTION = "rabiaa-prod-env"
+        EC2_PRODUCTION_HOST= "184.73.71.185"
     }
 
 
@@ -58,9 +59,7 @@ pipeline{
         }
         stage ('deploy app on staging env') {
             agent any
-            when {
-                expression { GIT_BRANCH == 'origin/master'}
-            }
+           
             environment {
                 HEROKU_API_KEY=credentials('heroku_apikey')
             }
@@ -75,11 +74,9 @@ pipeline{
                }
            } 
         } 
-        stage ('deploy app on prod env') {
+        stage ('deploy app on pre prod env') {
             agent any
-            when {
-                expression { GIT_BRANCH == 'origin/master'}
-            }
+           
             environment {
                 HEROKU_API_KEY=credentials('heroku_apikey')
             }
@@ -96,6 +93,27 @@ pipeline{
                         heroku container:release -a $PRODUCTION web
                    '''
                }
+           } 
+            
+            stage ('deploy app on prod env') {
+            agent any
+            when {
+                expression { GIT_BRANCH == 'origin/master'}
+            }
+            environment {
+                HEROKU_API_KEY=credentials('heroku_apikey')
+            }
+           steps {
+              withCredentials([sshUserPrivateKey(credentialsId: "ec2_private_key", keyFileVariable: 'keyfile', usernameVariable: 'NUSER')]) {
+                    script{
+                        timeout(time: 15, unit: "MINUTES") {
+                            input message: 'Do you want to approve the deploy in production?', ok: 'Yes'
+                        }	
+                        sh '''
+                           ssh -o StrictHostKeyChecking=no -i ${keyfile} ${NUSER}@${EC2_PRODUCTION_HOST} docker run --name $CONTAINER_NAME -d -e PORT=5000 -p 5000:5000 $USERNAME/$IMAGE_NAME:$IMAGE_TAG 
+                        '''
+                    }
+                }
            } 
         }              
     }
