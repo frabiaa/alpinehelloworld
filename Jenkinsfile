@@ -20,6 +20,7 @@ pipeline{
    stages{
 
         stage ('Build image'){
+            agent{label 'test'}
             steps{
                 script{
                     sh 'docker build -t ${USERNAME}/${IMAGE_NAME}:${IMAGE_TAG} .'
@@ -42,7 +43,7 @@ pipeline{
         }
 
         stage ('save artifact and clean env'){
-            agent any
+            agent{label 'test'}
             environment{
                 PASSWORD = credentials('dockerhub_password')
             }
