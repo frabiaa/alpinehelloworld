@@ -11,6 +11,7 @@ pipeline{
         STAGING = "rabiaa-staging-env"
         PRODUCTION = "rabiaa-prod-env"
         EC2_PRODUCTION_HOST= "184.73.71.185"
+        EC2_PRODUCTION_HOST_2= "3.86.223.248"
     }
 
 
@@ -113,6 +114,8 @@ pipeline{
                         }	
                         sh '''
                            ssh -o StrictHostKeyChecking=no -i ${keyfile} ${NUSER}@${EC2_PRODUCTION_HOST} docker run --name $CONTAINER_NAME -d -e PORT=5000 -p 5000:5000 $USERNAME/$IMAGE_NAME:$IMAGE_TAG 
+                           ssh -o StrictHostKeyChecking=no -i ${keyfile} ${NUSER}@${EC2_PRODUCTION_HOST_2} docker run --name $CONTAINER_NAME -d -e PORT=5000 -p 5000:5000 $USERNAME/$IMAGE_NAME:$IMAGE_TAG 
+
                         '''
                     }
                 }
