@@ -12,6 +12,7 @@ pipeline{
         PRODUCTION = "seb-prod-env"
     }
 
+
     agent any
 
     stages {
