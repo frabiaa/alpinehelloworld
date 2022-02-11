@@ -94,17 +94,17 @@ pipeline{
                    '''
                }
            } 
-            
-            stage ('deploy app on prod env') {
+        } 
+            stage ('deploy app on Prod env'){
             agent any
             when {
                 expression { GIT_BRANCH == 'origin/master'}
             }
-            environment {
-                HEROKU_API_KEY=credentials('heroku_apikey')
+            environment{
+                HEROKU_API_KEY = credentials('heroku_api_key')
             }
-           steps {
-              withCredentials([sshUserPrivateKey(credentialsId: "ec2_private_key", keyFileVariable: 'keyfile', usernameVariable: 'NUSER')]) {
+            steps{
+                withCredentials([sshUserPrivateKey(credentialsId: "ec2_private_key", keyFileVariable: 'keyfile', usernameVariable: 'NUSER')]) {
                     script{
                         timeout(time: 15, unit: "MINUTES") {
                             input message: 'Do you want to approve the deploy in production?', ok: 'Yes'
@@ -114,8 +114,7 @@ pipeline{
                         '''
                     }
                 }
-           } 
-        }              
+            }   
     }
     post {
         always {
