@@ -7,7 +7,7 @@ pipeline{
         IMAGE_NAME = "alpinehelloworld"
         IMAGE_TAG = "latest"
         USERNAME = "frabiaa"
-        CONTAINTER_NAME = "alpinehelloworld"
+        CONTAINER_NAME = "alpinehelloworld"
         STAGING = "rabiaa-staging-env"
         PRODUCTION = "rabiaa-prod-env"
         EC2_PRODUCTION_HOST= "184.73.71.185"
