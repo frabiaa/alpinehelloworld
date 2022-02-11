@@ -29,6 +29,7 @@ pipeline{
         }
 
         stage ('Run a container and Test Image'){
+            agent{label 'test'}
             steps{
                 script{
                     sh '''
