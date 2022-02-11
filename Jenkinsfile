@@ -6,7 +6,7 @@ pipeline{
     environment{
         IMAGE_NAME = "alpinehelloworld"
         IMAGE_TAG = "latest"
-        USERNAME = "26021973"
+        USERNAME = "frabiaa"
         CONTAINTER_NAME = "alpinehelloworld"
         STAGING = "seb-staging-env"
         PRODUCTION = "seb-prod-env"
